@@ -1,14 +1,15 @@
 import axios from "axios";
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNTBmODFhYzdkMGNmZGMxZmUwY2FkNWU2Mjk1ODFiMSIsInN1YiI6IjY2MjQzOGZiYjI2ODFmMDFhOTcyZjFhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8GZ1OEperL8K8j624ArvYS2Q9deNf66GfaKssCYex1Y";
+// axios.defaults.headers.common["Authorization"] =
+//   "Bearer 02fa0d63eaeb59b5726e046880e445f4";
 
-const trendingMovie = async (page) => {
+const API_KEY = "02fa0d63eaeb59b5726e046880e445f4";
+
+export const trendingMovies = async () => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/trending/movie/day?page=${page}&language=en-US`
+    `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${API_KEY}`
   );
-  console.log(response.data);
+
+  console.log(response);
   return response.data;
 };
-
-trendingMovie(1);
