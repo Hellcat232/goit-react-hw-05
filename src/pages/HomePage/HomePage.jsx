@@ -6,7 +6,6 @@ import MovieList from "../../components/MovieList/MovieList";
 const HomePage = () => {
   const [homePage, setHomePage] = useState([]);
   const [error, setError] = useState("");
-  console.log(homePage);
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {

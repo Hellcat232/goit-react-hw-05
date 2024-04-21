@@ -13,3 +13,12 @@ export const trendingMovies = async () => {
   console.log(response);
   return response.data;
 };
+
+export const getMovieDetails = async (id) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=${API_KEY}`
+  );
+
+  console.log(response);
+  return response.data;
+};

@@ -1,16 +1,17 @@
-const MovieList = ({ movies }) => {
-  console.log(movies);
+import { NavLink } from "react-router-dom";
 
+const MovieList = ({ movies }) => {
   return (
     <ul>
       {movies.map((movie) => {
-        console.log(movie);
         return (
           <li key={movie.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-            />
+            <NavLink to={`/movie/${movie.id}`}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+              />
+            </NavLink>
           </li>
         );
       })}
