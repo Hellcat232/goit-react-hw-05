@@ -1,7 +1,7 @@
 import MovieList from "../../components/MovieList/MovieList";
 
-const MoviesPage = ({ movies }) => {
-  return <MovieList movies={movies} />;
+const MoviesPage = () => {
+  return;
 };
 
 export default MoviesPage;

@@ -6,19 +6,18 @@ import axios from "axios";
 const API_KEY = "02fa0d63eaeb59b5726e046880e445f4";
 
 export const trendingMovies = async () => {
-  const response = await axios.get(
+  const { data } = await axios.get(
     `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${API_KEY}`
   );
 
-  console.log(response);
-  return response.data;
+  return data;
 };
 
-export const getMovieDetails = async (id) => {
-  const response = await axios.get(
+export const getMovieId = async (id) => {
+  const { data } = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=${API_KEY}`
   );
 
-  console.log(response);
-  return response.data;
+  console.log(data);
+  return data;
 };
