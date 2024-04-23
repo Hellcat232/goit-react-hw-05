@@ -1,3 +1,1 @@
-const NotFoundPage = () => {};
-
-export default NotFoundPage;
+export default function NotFoundPage() {}

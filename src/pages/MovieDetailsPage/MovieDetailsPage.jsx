@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react";
-import { Outlet, useParams, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import { getMovieId } from "../../API";
+import MovieCast from "../../components/MovieCast/MovieCast";
+import MovieReviews from "../../components/MovieReviews/MovieReviews";
 
-const MovieDetailsPage = () => {
+export default function MovieDetailsPage() {
   const { movieId } = useParams();
-  const location = useLocation();
 
   useEffect(() => {
     const fetchId = async () => {
       try {
-        const res = await getMovieId(movieId);
+        const resp = await getMovieId(movieId);
 
-        console.log(res);
+        console.log(resp);
       } catch (error) {}
     };
 
     fetchId();
   }, [movieId]);
+
+  console.log(movieId);
+
   return (
     <div>
-      <p></p>
-      <p>{movieId}</p>
+      <MovieCast />
+      <MovieReviews />
       <Outlet />
     </div>
   );
-};
-
-export default MovieDetailsPage;
+}
