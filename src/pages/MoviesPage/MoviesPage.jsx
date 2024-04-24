@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import Searching from "../../components/Searching/Searching";
 import MovieList from "../../components/MovieList/MovieList";
 import { searchMovie } from "../../API";

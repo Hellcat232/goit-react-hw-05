@@ -30,3 +30,19 @@ export const searchMovie = async (query) => {
   // console.log(data);
   return data;
 };
+
+export const getCast = async (id) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US&api_key=${API_KEY}`
+  );
+
+  return data;
+};
+
+export const getReviews = async (id) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1&api_key=${API_KEY}`
+  );
+
+  return data;
+};
