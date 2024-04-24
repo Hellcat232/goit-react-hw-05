@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import { getMovieId } from "../../API";
-import MovieCast from "../../components/MovieCast/MovieCast";
-import MovieReviews from "../../components/MovieReviews/MovieReviews";
-
+import css from "./MovieDetailsPage.module.css";
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState([]);
@@ -27,24 +25,42 @@ export default function MovieDetailsPage() {
 
   return (
     <div>
-      <img
-        src={`https://image.tmdb.org/t/p/w400${movieDetails.poster_path}`}
-        alt=""
-      />
-      <h2>Title: {movieDetails.title}</h2>
-      <p>Popularity: {movieDetails.popularity}</p>
+      <div className={css.details}>
+        <img
+          src={`https://image.tmdb.org/t/p/w300${movieDetails.poster_path}`}
+          alt=""
+        />
+        <ul className={css.description}>
+          <li>
+            <h2>{movieDetails.title}</h2>
+          </li>
+          <li className={css["description-item"]}>
+            <h3 className={css.subtitle}>Popularity:</h3>
+            {movieDetails.popularity}
+          </li>
+          <li className={css["description-item"]}>
+            <h3 className={css.subtitle}>Overview:</h3>
+            {movieDetails.overview}
+          </li>
+          <li className={css["description-item"]}>
+            <h3 className={css.subtitle}>Rating:</h3>
+            {movieDetails.vote_average}
+          </li>
+        </ul>
+      </div>
 
-      <p>Overview: {movieDetails.overview}</p>
-      <p>Rating: {movieDetails.vote_average}</p>
+      <div className={css.additional}>
+        <h2>Additional information:</h2>
 
-      <h3>Additional information</h3>
-
-      <Link to="cast">
-        <MovieCast />
-      </Link>
-      <Link to="reviews">
-        <MovieReviews />
-      </Link>
+        <div className={css["additional-item"]}>
+          <NavLink to="cast" className={css.link}>
+            Cast
+          </NavLink>
+          <NavLink to="reviews" className={css.link}>
+            Reviews
+          </NavLink>
+        </div>
+      </div>
 
       <Outlet />
     </div>

@@ -18,10 +18,11 @@
 }
 
 .item:hover {
-  background-color: antiquewhite;
-  border-radius: 8px;
-  border: 1px solid lightsalmon;
+  /* background-color: antiquewhite; */
+  /* border-radius: 8px; */
+  /* border: 1px solid lightsalmon; */
   padding: 3px;
+  text-decoration-line: underline;
 }
 
 .link {
