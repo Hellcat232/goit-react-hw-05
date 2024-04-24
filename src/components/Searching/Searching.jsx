@@ -1,17 +1,21 @@
 import { useState } from "react";
 
 const Searching = ({ onSubmit }) => {
-  const [val, setVal] = useState("");
+  // const [val, setVal] = useState("");
 
   const handleForm = (event) => {
     event.preventDefault();
 
-    if (event.target.query.value.trim() === "") return;
+    if (event.target.elements.query.value.trim() === "") return;
 
-    onSubmit(event.target.query.value);
+    onSubmit(event.target.elements.query.value);
 
     event.target.reset();
   };
+
+  // const handleChange = (event) => {
+  //   setVal(event.target.value);
+  // };
 
   return (
     <form onSubmit={handleForm}>

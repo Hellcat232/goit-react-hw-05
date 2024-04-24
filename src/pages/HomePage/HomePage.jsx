@@ -2,7 +2,8 @@ import { trendingMovies } from "../../API";
 import { useState, useEffect } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import MovieList from "../../components/MovieList/MovieList";
-import TrendingMovieList from "../../components/TrendingMovieList/TrendingMovieList";
+import { Link } from "react-router-dom";
+
 import { useLocation, useParams } from "react-router-dom";
 
 export default function HomePage() {
@@ -38,7 +39,15 @@ export default function HomePage() {
     <>
       {homePage.length > 0 && (
         <MovieList>
-          <TrendingMovieList movies={homePage} />
+          <>
+            {homePage.map((movie) => {
+              return (
+                <li key={movie.id}>
+                  <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                </li>
+              );
+            })}
+          </>
         </MovieList>
       )}
       {error && <ErrorMessage message={error} />}
