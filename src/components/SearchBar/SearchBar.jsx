@@ -1,11 +1,11 @@
 import css from "./SearchBar.module.css";
 import { TfiSearch } from "react-icons/tfi";
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ onSubmit, onEmpty }) => {
   const handleForm = (event) => {
     event.preventDefault();
 
-    if (event.target.elements.query.value.trim() === "") return;
+    if (event.target.elements.query.value.trim() === "") return onEmpty();
 
     onSubmit(event.target.elements.query.value);
 

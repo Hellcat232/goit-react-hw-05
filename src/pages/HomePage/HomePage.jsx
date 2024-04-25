@@ -4,10 +4,13 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import MovieList from "../../components/MovieList/MovieList";
 import { Link } from "react-router-dom";
 import css from "./HomePage.module.css";
+import Loader from "../../components/Loader/Loader";
+
 import { useLocation, useParams } from "react-router-dom";
 
 export default function HomePage() {
   const location = useLocation();
+  const [loader, setLoader] = useState(false);
   const [homePage, setHomePage] = useState([]);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
@@ -16,6 +19,7 @@ export default function HomePage() {
     const controller = new AbortController();
     const fetchTrendingMovies = async () => {
       try {
+        setLoader(true);
         const { results, page } = await trendingMovies({
           controller: controller,
         });
@@ -26,6 +30,8 @@ export default function HomePage() {
         if (error.code !== "ERR_CANCELED") {
           setError(error.message);
         }
+      } finally {
+        setLoader(false);
       }
     };
 
@@ -38,6 +44,8 @@ export default function HomePage() {
 
   return (
     <>
+      {loader && <Loader />}
+
       {homePage.length > 0 && (
         <MovieList>
           <>
