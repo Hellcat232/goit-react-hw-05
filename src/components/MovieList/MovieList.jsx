@@ -1,9 +1,9 @@
-const MovieList = ({ children }) => {
-  // console.log(children);
+import css from "./MovieList.module.css";
 
+const MovieList = ({ children }) => {
   return (
-    <main>
-      <ul>{children}</ul>
+    <main className={css.main}>
+      <ul className={css["list-item"]}>{children}</ul>
     </main>
   );
 };

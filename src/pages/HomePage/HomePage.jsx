@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import MovieList from "../../components/MovieList/MovieList";
 import { Link } from "react-router-dom";
-
+import css from "./HomePage.module.css";
 import { useLocation, useParams } from "react-router-dom";
 
 export default function HomePage() {
+  const location = useLocation();
   const [homePage, setHomePage] = useState([]);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
@@ -42,8 +43,13 @@ export default function HomePage() {
           <>
             {homePage.map((movie) => {
               return (
-                <li key={movie.id}>
-                  <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                <li className={css.item} key={movie.id}>
+                  <Link to={`/movies/${movie.id}`} state={location}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                      alt=""
+                    />
+                  </Link>
                 </li>
               );
             })}

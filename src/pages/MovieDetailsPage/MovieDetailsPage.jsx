@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { getMovieId } from "../../API";
 import css from "./MovieDetailsPage.module.css";
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState([]);
-  console.log(movieDetails);
+  const location = useLocation();
+  console.log(location);
+  // console.log(movieDetails);
 
   useEffect(() => {
     const fetchId = async () => {
@@ -25,11 +27,13 @@ export default function MovieDetailsPage() {
 
   return (
     <div>
+      <NavLink to={location.state}>Go back</NavLink>
       <div className={css.details}>
         <img
           src={`https://image.tmdb.org/t/p/w300${movieDetails.poster_path}`}
           alt=""
         />
+
         <ul className={css.description}>
           <li>
             <h2>{movieDetails.title}</h2>
@@ -53,10 +57,10 @@ export default function MovieDetailsPage() {
         <h2>Additional information:</h2>
 
         <div className={css["additional-item"]}>
-          <NavLink to="cast" className={css.link}>
+          <NavLink to="cast" state={location.state} className={css.link}>
             Cast
           </NavLink>
-          <NavLink to="reviews" className={css.link}>
+          <NavLink to="reviews" state={location.state} className={css.link}>
             Reviews
           </NavLink>
         </div>
