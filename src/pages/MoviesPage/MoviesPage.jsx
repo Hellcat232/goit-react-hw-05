@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import MovieList from "../../components/MovieList/MovieList";
 import { searchMovie } from "../../API";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,6 +10,9 @@ import toast, { Toaster } from "react-hot-toast";
 const notify = () => toast("Please write something in the field!");
 
 export default function MoviesPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [queryValue, setQueryValue] = useState("");
+
   const location = useLocation();
   const [queryMovies, setQueryMovies] = useState([]);
   const [query, setQuery] = useState("");
@@ -17,8 +20,9 @@ export default function MoviesPage() {
   const [loader, setLoader] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(1);
-  console.log(totalPage);
-  console.log(queryMovies);
+  // console.log(totalPage);
+  // console.log(queryMovies);
+  console.log(searchParams);
 
   const onSubmit = (query) => {
     setQueryMovies([]);
@@ -47,9 +51,21 @@ export default function MoviesPage() {
     fetchQuery();
   }, [query]);
 
+  useEffect(() => {
+    setQueryValue(searchParams.get("query") ?? "");
+  }, [searchParams]);
+
+  const handleSearchChange = (event) => {
+    setQueryValue(event.target.value);
+  };
+
   return (
     <>
       <SearchBar
+        handleSearchChange={handleSearchChange}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+        queryValue={queryValue}
         onSubmit={onSubmit}
         onEmpty={() => {
           notify();
@@ -58,24 +74,7 @@ export default function MoviesPage() {
 
       {loader && <Loader />}
 
-      {queryMovies.length > 0 && (
-        <MovieList>
-          <>
-            {queryMovies.map((movie) => {
-              return (
-                <li key={movie.id}>
-                  <Link to={`/movies/${movie.id}`} state={location}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                      alt=""
-                    />
-                  </Link>
-                </li>
-              );
-            })}
-          </>
-        </MovieList>
-      )}
+      {queryMovies.length > 0 && <MovieList movies={queryMovies} />}
 
       {error && <ErrorMessage message={error} />}
 

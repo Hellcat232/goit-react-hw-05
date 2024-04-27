@@ -10,7 +10,7 @@ export default function MovieDetailsPage() {
   const [loader, setLoader] = useState(false);
   const [movieDetails, setMovieDetails] = useState([]);
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   // console.log(movieDetails);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function MovieDetailsPage() {
     fetchId();
   }, [movieId]);
 
-  console.log(movieId);
+  // console.log(movieId);
 
   return (
     <>

@@ -46,24 +46,8 @@ export default function HomePage() {
     <>
       {loader && <Loader />}
 
-      {homePage.length > 0 && (
-        <MovieList>
-          <>
-            {homePage.map((movie) => {
-              return (
-                <li className={css.item} key={movie.id}>
-                  <Link to={`/movies/${movie.id}`} state={location}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-                      alt=""
-                    />
-                  </Link>
-                </li>
-              );
-            })}
-          </>
-        </MovieList>
-      )}
+      {homePage.length > 0 && <MovieList movies={homePage} />}
+
       {error && <ErrorMessage message={error} />}
     </>
   );

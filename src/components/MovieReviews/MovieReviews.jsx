@@ -9,7 +9,7 @@ const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState("");
-  console.log(reviews);
+  // console.log(reviews);
 
   useEffect(() => {
     const fetchReviews = async () => {

@@ -9,7 +9,7 @@ const MovieCast = () => {
   const [cast, setCast] = useState([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState("");
-  console.log(cast);
+  // console.log(cast);
 
   useEffect(() => {
     const fetchCast = async () => {
