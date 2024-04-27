@@ -11,8 +11,6 @@ const notify = () => toast("Please write something in the field!");
 
 export default function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [queryValue, setQueryValue] = useState("");
-
   const location = useLocation();
   const [queryMovies, setQueryMovies] = useState([]);
   const [query, setQuery] = useState("");
@@ -24,6 +22,13 @@ export default function MoviesPage() {
   // console.log(queryMovies);
   console.log(searchParams);
 
+  const params = searchParams.get("query") ?? "";
+
+  const changeParams = (newParams) => {
+    searchParams.set("query", newParams);
+    setSearchParams(searchParams);
+  };
+
   const onSubmit = (query) => {
     setQueryMovies([]);
     setTotalPage(0);
@@ -32,12 +37,14 @@ export default function MoviesPage() {
   };
 
   useEffect(() => {
-    if (!query) return;
+    // if (!query) return;
+    if (!params) return;
+
+    setLoader(true);
 
     const fetchQuery = async () => {
       try {
-        setLoader(true);
-        const { total_pages, results, page } = await searchMovie(query);
+        const { total_pages, results, page } = await searchMovie(params);
         setTotalPage(total_pages);
         setQueryMovies(results);
         setPage(page);
@@ -49,23 +56,18 @@ export default function MoviesPage() {
     };
 
     fetchQuery();
-  }, [query]);
+  }, [params]);
 
   useEffect(() => {
-    setQueryValue(searchParams.get("query") ?? "");
-  }, [searchParams]);
-
-  const handleSearchChange = (event) => {
-    setQueryValue(event.target.value);
-  };
+    if (params && !queryMovies.length) {
+      onSubmit(params);
+    }
+  }, [params, queryMovies.length]);
 
   return (
     <>
       <SearchBar
-        handleSearchChange={handleSearchChange}
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-        queryValue={queryValue}
+        changeParams={changeParams}
         onSubmit={onSubmit}
         onEmpty={() => {
           notify();

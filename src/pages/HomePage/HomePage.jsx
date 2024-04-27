@@ -13,7 +13,7 @@ export default function HomePage() {
   const [loader, setLoader] = useState(false);
   const [homePage, setHomePage] = useState([]);
   const [error, setError] = useState("");
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const controller = new AbortController();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { getMovieId } from "../../API";
 import css from "./MovieDetailsPage.module.css";
@@ -10,6 +10,7 @@ export default function MovieDetailsPage() {
   const [loader, setLoader] = useState(false);
   const [movieDetails, setMovieDetails] = useState([]);
   const location = useLocation();
+  const backLink = useRef(location.state);
   // console.log(location);
   // console.log(movieDetails);
 
@@ -38,7 +39,7 @@ export default function MovieDetailsPage() {
 
       {movieId.length > 0 && (
         <div>
-          <NavLink to={location.state}>Go back</NavLink>
+          <NavLink to={backLink.current}>Go back</NavLink>
 
           <div className={css.details}>
             <img
