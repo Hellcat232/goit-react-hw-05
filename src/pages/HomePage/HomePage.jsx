@@ -2,8 +2,7 @@ import { trendingMovies } from "../../API";
 import { useState, useEffect } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import MovieList from "../../components/MovieList/MovieList";
-import { Link } from "react-router-dom";
-import css from "./HomePage.module.css";
+
 import Loader from "../../components/Loader/Loader";
 
 import { useLocation, useParams } from "react-router-dom";
@@ -17,9 +16,11 @@ export default function HomePage() {
 
   useEffect(() => {
     const controller = new AbortController();
+
+    setLoader(true);
+
     const fetchTrendingMovies = async () => {
       try {
-        setLoader(true);
         const { results, page } = await trendingMovies({
           controller: controller,
         });

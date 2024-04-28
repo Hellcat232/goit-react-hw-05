@@ -13,31 +13,34 @@ export default function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const [queryMovies, setQueryMovies] = useState([]);
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   const [loader, setLoader] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(1);
-  // console.log(totalPage);
-  // console.log(queryMovies);
-  console.log(searchParams);
 
   const params = searchParams.get("query") ?? "";
 
+  // const changeParams = (newParams) => {
+  //   searchParams.set("query", newParams);
+  //   setSearchParams(searchParams);
+  // };
+
   const changeParams = (newParams) => {
-    searchParams.set("query", newParams);
-    setSearchParams(searchParams);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("query", newParams);
+    setSearchParams(newSearchParams);
   };
 
   const onSubmit = (query) => {
     setQueryMovies([]);
     setTotalPage(0);
-    setQuery(query);
+    // setQuery(query);
     setError("");
+    changeParams(query);
   };
 
   useEffect(() => {
-    // if (!query) return;
     if (!params) return;
 
     setLoader(true);
@@ -59,15 +62,15 @@ export default function MoviesPage() {
   }, [params]);
 
   useEffect(() => {
-    if (params && !queryMovies.length) {
+    if (params) {
       onSubmit(params);
     }
-  }, [params, queryMovies.length]);
+  }, [params]);
 
   return (
     <>
       <SearchBar
-        changeParams={changeParams}
+        // changeParams={changeParams}
         onSubmit={onSubmit}
         onEmpty={() => {
           notify();
