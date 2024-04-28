@@ -61,11 +61,11 @@ export default function MoviesPage() {
     fetchQuery();
   }, [params]);
 
-  useEffect(() => {
-    if (params) {
-      onSubmit(params);
-    }
-  }, [params]);
+  // useEffect(() => {
+  //   if (params) {
+  //     onSubmit(params);
+  //   }
+  // }, [params]);
 
   return (
     <>
